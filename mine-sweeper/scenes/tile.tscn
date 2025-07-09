@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2iklnquvb3b8"]
+
+[ext_resource type="Texture2D" uid="uid://mpj2juhlcc7h" path="res://assets/sprites/campo.png" id="1_3dk36"]
+[ext_resource type="Script" uid="uid://lbkcu6u378ox" path="res://scripts/tile.gd" id="1_ywnoi"]
+[ext_resource type="Texture2D" uid="uid://bn7to4hmf5eii" path="res://assets/sprites/bandeira.png" id="3_jy7pm"]
+[ext_resource type="Texture2D" uid="uid://bxumgevyo41ss" path="res://assets/sprites/explosao.png" id="4_q7utx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywnoi"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6p3j2"]
+size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q7utx"]
+size = Vector2(8, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3dk36"]
+font_size = 96
+outline_size = 12
+
+[node name="tile" type="Area2D" groups=["tiles"]]
+scale = Vector2(4, 4)
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_ywnoi")
+
+[node name="tileSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_3dk36")
+
+[node name="borderCollision" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_ywnoi")
+debug_color = Color(0.823129, 0.963697, 1, 0.42)
+
+[node name="tileMid" type="Area2D" parent="."]
+visible = false
+collision_mask = 4
+
+[node name="midCollision" type="CollisionShape2D" parent="tileMid"]
+shape = SubResource("RectangleShape2D_6p3j2")
+debug_color = Color(0, 0.624402, 0.529335, 0.42)
+
+[node name="tileCenter" type="Area2D" parent="."]
+visible = false
+collision_mask = 2
+monitorable = false
+
+[node name="centerCollision" type="CollisionShape2D" parent="tileCenter"]
+shape = SubResource("RectangleShape2D_q7utx")
+debug_color = Color(0.726691, 0.475527, 5.77569e-07, 0.42)
+
+[node name="number" type="Label" parent="."]
+visible = false
+offset_left = -6.25
+offset_top = -33.0
+offset_right = 25.75
+offset_bottom = 234.0
+scale = Vector2(0.25, 0.25)
+text = "
+"
+label_settings = SubResource("LabelSettings_3dk36")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="flag" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_jy7pm")
+
+[node name="explosion" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_q7utx")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="area_entered" from="tileMid" to="." method="_on_tile_mid_area_entered"]

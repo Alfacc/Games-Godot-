@@ -1,0 +1,78 @@
+[gd_scene load_steps=10 format=3 uid="uid://dmkhhkrsfvmj1"]
+
+[ext_resource type="Script" uid="uid://wsy55hcqhhji" path="res://scripts/game.gd" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://dbqkaa15sfayj" path="res://assets/sprites/fundo_interface.png" id="2_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://bn7to4hmf5eii" path="res://assets/sprites/bandeira.png" id="3_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://bvuo5ld5m6udl" path="res://assets/sprites/icone_reiniciar.png" id="4_lbhrr"]
+[ext_resource type="AudioStream" uid="uid://w4y813sqd3nl" path="res://assets/audio/effects/sound5.wav" id="5_u5sy4"]
+[ext_resource type="AudioStream" uid="uid://bc7b2vieq6pol" path="res://assets/audio/effects/boom8.wav" id="6_gee14"]
+[ext_resource type="AudioStream" uid="uid://vjn864ofmbgm" path="res://assets/audio/effects/boom14.wav" id="7_0tnpc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yqjtg"]
+font_size = 32
+outline_size = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_lnu2h"]
+font_size = 24
+outline_size = 3
+
+[node name="game" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_uwrxv")
+
+[node name="backgroundGUI" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("2_yqjtg")
+centered = false
+
+[node name="flag" type="Sprite2D" parent="."]
+position = Vector2(3741, 62)
+scale = Vector2(4, 4)
+texture = ExtResource("3_lnu2h")
+centered = false
+
+[node name="timer" type="Label" parent="."]
+offset_left = 191.0
+offset_right = 236.0
+offset_bottom = 64.0
+scale = Vector2(4, 4)
+text = "0.0"
+label_settings = SubResource("LabelSettings_yqjtg")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="flagsRemaining" type="Label" parent="."]
+offset_left = 3828.0
+offset_top = 59.0
+offset_right = 3868.0
+offset_bottom = 93.0
+scale = Vector2(4, 4)
+label_settings = SubResource("LabelSettings_lnu2h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="restartButton" type="Button" parent="."]
+offset_left = 1888.0
+offset_top = 42.0
+offset_right = 1928.0
+offset_bottom = 82.0
+scale = Vector2(4, 4)
+icon = ExtResource("4_lbhrr")
+flat = true
+
+[node name="endSceneDelay" type="Timer" parent="."]
+one_shot = true
+
+[node name="clickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_u5sy4")
+volume_db = -38.629
+
+[node name="bombSound1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_gee14")
+volume_db = -31.829
+
+[node name="bombSound2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_0tnpc")
+volume_db = -46.927
+
+[connection signal="pressed" from="restartButton" to="." method="_on_button_pressed"]
